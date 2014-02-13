@@ -14,9 +14,14 @@ namespace Noten
     {
         Settings settings;
 
-        public Options()
+        bool setLanguageClose;
+
+        Form1 form1;
+
+        public Options(Form1 f)
         {
             InitializeComponent();
+            form1 = f;
         }
 
         public void setSettings(Settings newSettings)
@@ -24,9 +29,37 @@ namespace Noten
             settings = newSettings;
         }
 
+        private void setLanguage()
+        {
+            string[] Language = settings.getLanguage();
+            label1.Text = Language[13];
+            label2.Text = Language[0];
+            label3.Text = Language[1];
+            label4.Text = Language[2];
+            label5.Text = Language[3];
+            label6.Text = Language[4];
+            button1.Text = Language[6];
+        }
+
         private void Options_Load(object sender, EventArgs e)
         {
-
+            textBox2.Text = settings.getSetting(1).ToString();
+            textBox3.Text = settings.getSetting(2).ToString();
+            textBox4.Text = settings.getSetting(3).ToString();
+            textBox5.Text = settings.getSetting(4).ToString();
+            textBox6.Text = settings.getSetting(5).ToString();
+            string ComboBoxText;
+            if(settings.getSetting(6) == 1)
+            {
+                ComboBoxText = "Deutsch";
+            }
+            else
+            {
+                ComboBoxText = "Englisch";
+            }
+            comboBox1.Text = ComboBoxText;
+            setLanguageClose = false;
+            setLanguage();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -49,6 +82,13 @@ namespace Noten
             {
                 settings.saveSettings(settingsArray);
             }
+            form1.setLanguage();
+            setLanguage();
+        }
+
+        private void Options_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            setLanguageClose = true;
         }
 
 

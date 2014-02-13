@@ -12,15 +12,13 @@ namespace Noten
         /* 
          * Klasee zum auslesen der Settings Datei
          * Reihenfolge der Einstellungen:
-         * 1 - 5 = Prozentzahlen für die Noten" bi, beginnend bei der Note "Sehr Gut "MangelHAFT"
+         * 1 - 5 = Prozentzahlen für die Noten, beginnend bei der Note "Sehr Gut" bis "MangelHAFT"
          * 6 = Sprache
          */
 
-        /*
-         * 
-         * 
-         * 
-         * 
+        /* .language Dateien: 1 - 5 = Label für Prozentsatz Notennamen
+         * 6 = Button rechnen; 7 = Button speichern; 8 = Deutsch; 9 = Englisch; 10 = Menü
+         * 11 = Optionen; 12 = Schließen; 13 = Über; 14 = Sprache; 15 = Erreichte Punktzahl; 16 = Volle Punktzahl
          */ 
 
         public Settings()
@@ -43,7 +41,7 @@ namespace Noten
         string[] languageStrings;
 
         //Einstellungen laden
-        private void loadSettings()
+        public void loadSettings()
         {
             //AppData Folder einstellen
             sourceFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/kaizi99/";
@@ -65,12 +63,13 @@ namespace Noten
             sr.Close();
 
             //Sprache laden, momentan wegen Bugs auskommentiert
-            //loadLanguage();
+            loadLanguage();
         }
 
         //Sprache laden
         private void loadLanguage()
         {
+            languageStrings = new string[17];
             if (language == 1)
             {
                 //Deutsche Language Datei laden
@@ -82,6 +81,7 @@ namespace Noten
                 {
                     counter++;
                 }
+                sr.Close();
             }
             else if (language == 2)
             {
@@ -94,7 +94,9 @@ namespace Noten
                 {
                     counter++;
                 }
+                sr.Close();
             }
+
         }
 
         public float getSetting(int settingIndex)

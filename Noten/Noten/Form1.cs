@@ -18,14 +18,22 @@ namespace Noten
             InitializeComponent();
         }
 
-        private void setLanguage()
+        public void setLanguage()
         {
+            settings.loadSettings();
             string[] Language = settings.getLanguage();
+            label1.Text = Language[14];
+            label2.Text = Language[15];
+            button1.Text = Language[5];
+            menüToolStripMenuItem.Text = Language[9];
+            schließenToolStripMenuItem.Text = Language[11];
+            optionenToolStripMenuItem.Text = Language[10];
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             settings = new Settings();
+            setLanguage();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,7 +52,7 @@ namespace Noten
 
             note = noteErrechnen(prozent);
 
-            MessageBox.Show("Note: " + note + Environment.NewLine + "Prozent: " + prozent);
+            MessageBox.Show("Note: " + note + Environment.NewLine + "Prozent: " + prozent, "ERGEBNIS");
         }
 
         private int noteErrechnen(int prozent)
@@ -58,23 +66,23 @@ namespace Noten
             {
                 return 1;
             }
-            if (prozent <= p1 && prozent >= p2)
+            if (prozent < p1 && prozent >= p2)
             {
                 return 2;
             }
-            if(prozent <= p2 && prozent >= p3)
+            if(prozent < p2 && prozent >= p3)
             {
                 return 3;
             }
-            if(prozent <= p3 && prozent >= p4)
+            if(prozent < p3 && prozent >= p4)
             {
                 return 4;
             }
-            if(prozent <= p4 && prozent >= p5)
+            if(prozent < p4 && prozent >= p5)
             {
                 return 5;
             }
-            if(prozent <= p4)
+            if(prozent < p5)
             {
                 return 6;
             }
@@ -82,9 +90,14 @@ namespace Noten
         }
         private void optionenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Options options = new Options();
+            Options options = new Options(this);
             options.setSettings(settings);
             options.ShowDialog();
+        }
+
+        private void schließenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
     }
